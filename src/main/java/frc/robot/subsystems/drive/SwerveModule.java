@@ -6,12 +6,18 @@ package frc.robot.subsystems.drive;
 
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
-import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkBase.PersistMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -29,8 +35,8 @@ public class SwerveModule {
 
   private final int m_id;
 
-  private final TalonFX m_driveMotor;
-  private final TalonFX m_turningMotor;
+  private final SparkFlex m_driveMotor;
+  private final SparkFlex m_turningMotor;
 
   private final CANcoder m_turningEncoder;
   private final PIDController m_drivePIDController = new PIDController(DriveConstants.kPDrive, 0, 0);
@@ -61,31 +67,26 @@ public class SwerveModule {
       double turningEncoderOffset) {
 
     m_id = driveMotorChannel;
-    m_driveMotor = new TalonFX(driveMotorChannel, canName);
-    m_turningMotor = new TalonFX(turningMotorChannel, canName);
 
-
-    TalonFXConfiguration turning_motor_config = new TalonFXConfiguration();
-    turning_motor_config.CurrentLimits.StatorCurrentLimit = 35;
-    turning_motor_config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    turning_motor_config.MotorOutput.Inverted = invertTurning ?  InvertedValue.Clockwise_Positive :InvertedValue.CounterClockwise_Positive;
+    // Configure Driving motor & motor 
     
-    TalonFXConfiguration drive_motor_config = new TalonFXConfiguration();
-    drive_motor_config.CurrentLimits.StatorCurrentLimit = 35;
-    drive_motor_config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    drive_motor_config.MotorOutput.Inverted = invertDrive ?  InvertedValue.Clockwise_Positive :InvertedValue.CounterClockwise_Positive;
+    m_driveMotor = new SparkFlex(driveMotorChannel, MotorType.kBrushless);
+    SparkFlexConfig drive_motor_config = new SparkFlexConfig();
+    drive_motor_config
+        .smartCurrentLimit(40)
+        .idleMode(IdleMode.kBrake);
+    // Persist parameters to retain configuration in the event of a power cycle
+    m_driveMotor.configure(drive_motor_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    if (!TalonUtils.ApplyTalonConfig(m_turningMotor, turning_motor_config)) {
-      System.out.println("Could not apply configs to the turning motor");
-    }
+    // Configure Turning motor & motor controller
 
-    if (!TalonUtils.ApplyTalonConfig(m_driveMotor, drive_motor_config)) {
-      System.out.println("Could not apply configs to the drive motor");
-    }
-
-
-    m_driveMotor.setNeutralMode(NeutralModeValue.Brake);
-    m_turningMotor.setNeutralMode(NeutralModeValue.Brake);
+    m_turningMotor = new SparkFlex(turningMotorChannel, MotorType.kBrushless);
+    SparkFlexConfig turning_motor_config = new SparkFlexConfig();
+    turning_motor_config
+        .smartCurrentLimit(40)
+        .idleMode(IdleMode.kBrake);
+    // Persist parameters to retain configuration in the event of a power cycle
+    m_turningMotor.configure(turning_motor_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     m_turningEncoder = new CANcoder(turningEncoderChannel, canName);
     var turning_config = new CANcoderConfiguration();
@@ -96,17 +97,15 @@ public class SwerveModule {
       System.out.println("Could not apply configs to the turning encoder");
     }
    
-
-
     // Limit the PID Controller's input range between -pi and pi and set the input
     // to be continuous.
     m_turnPIDController.enableContinuousInput(-Math.PI, Math.PI);
   }
 
-  public TalonFX getTurningMotor(){
+  public SparkFlex getTurningMotor(){
     return m_turningMotor;
   }
-  public TalonFX getDriveMotor(){
+  public SparkFlex getDriveMotor(){
     return m_driveMotor;
   }
 
@@ -117,14 +116,12 @@ public class SwerveModule {
   }
 
   private double getDriveEncoderVelocityMetersPerSecond() {
-    m_driveMotor.getVelocity().refresh();
-    return m_driveMotor.getVelocity().getValueAsDouble()  * (2 * Math.PI * ModuleConstants.kWheelRadius)
+    return m_driveMotor.getAbsoluteEncoder().getVelocity() * (2 * Math.PI * ModuleConstants.kWheelRadius)
         / ModuleConstants.kDriveGearRatio;
   }
 
   private double getDriveEncoderPositionMeters() {
-    m_driveMotor.getPosition().refresh();
-    return m_driveMotor.getPosition().getValueAsDouble() * (2 * Math.PI * ModuleConstants.kWheelRadius)
+    return m_driveMotor.getAbsoluteEncoder().getPosition() * (2 * Math.PI * ModuleConstants.kWheelRadius)
         / ModuleConstants.kDriveGearRatio;
   }
 
@@ -198,6 +195,6 @@ public class SwerveModule {
 
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
-    m_driveMotor.setPosition(0);
+    //m_driveMotor.getAbsoluteEncoder().setPosition(0);
   }
 }

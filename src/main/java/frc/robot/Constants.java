@@ -31,20 +31,20 @@ public final class Constants {
 
   public static final class DriveConstants {
 
-    public static final int kFrontLeftDriveMotorPort = 2;
-    public static final int kRearLeftDriveMotorPort = 4;
-    public static final int kFrontRightDriveMotorPort = 0;
-    public static final int kRearRightDriveMotorPort = 6;
+    public static final int kFrontLeftDriveMotorPort = 11;
+    public static final int kRearLeftDriveMotorPort = 5;
+    public static final int kFrontRightDriveMotorPort = 8;
+    public static final int kRearRightDriveMotorPort = 2;
 
-    public static final int kFrontLeftTurningMotorPort = 3;
-    public static final int kRearLeftTurningMotorPort = 5;
-    public static final int kFrontRightTurningMotorPort = 1;
-    public static final int kRearRightTurningMotorPort = 7;
+    public static final int kFrontLeftTurningMotorPort = 12;
+    public static final int kRearLeftTurningMotorPort = 6;
+    public static final int kFrontRightTurningMotorPort = 9;
+    public static final int kRearRightTurningMotorPort = 3;
 
-    public static final int kFrontLeftTurningEncoderPort = 1;
-    public static final int kRearLeftTurningEncoderPort = 2;
-    public static final int kFrontRightTurningEncoderPort = 0;
-    public static final int kRearRightTurningEncoderPort = 3;
+    public static final int kFrontLeftTurningEncoderPort = 10;
+    public static final int kRearLeftTurningEncoderPort = 4;
+    public static final int kFrontRightTurningEncoderPort = 7;
+    public static final int kRearRightTurningEncoderPort = 1;
 
     public static final boolean kFrontLeftTurningEncoderReversed = true;
     public static final boolean kRearLeftTurningEncoderReversed = true;
@@ -62,14 +62,14 @@ public final class Constants {
     public static final double kBackRightAngleOffset = 0.487793;
 
     // Distance between centers of right and left wheels on robot
-    public static final double kTrackWidth = 0.60325;
+    public static final double kTrackWidth = 0.6096;  // 24" in meters
 
     // Distance between front and back wheels on robot
-    public static final double kWheelBase = 0.55245;
+    public static final double kWheelBase = 0.6096;  // 24" in meters
 
     
 
-    public static final String kCanName = "Canivore";
+    public static final String kCanName = "TheCanivore";
 
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(kWheelBase / 2, kTrackWidth / 2),
