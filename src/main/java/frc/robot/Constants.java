@@ -69,7 +69,8 @@ public final class Constants {
 
     
 
-    public static final String kCanName = "TheCanivore";
+    public static final String kRioCanName = "rio";
+    public static final String kCanivoreCanName = "Canivore";
 
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -92,7 +93,7 @@ public final class Constants {
 
     public static final double kMaxAccelerationMetersPerSecondSquared = 4;
   }
-
+/*
   public static final class IntakeConstants {
 
     public static final int kForwardSpeed = 4000;
@@ -147,23 +148,9 @@ public final class Constants {
 
     public static final double kMaxVelocity = (double) 2 *  Math.PI; //max velocity is 90 deg / sec
     public static final double kMaxAcceleration = (double) 2.5*  Math.PI; //max accel is 45 deg/sec^2
-    public static final PidConstants kPidValues = new PidConstants(41/*5.3718*/, 0, 6.605);
-    //public static final PidConstants kPidValues = new PidConstants(30/*5.3718*/, 80, .1);
-    //public static final FeedForwardConstants kFFValues = new FeedForwardConstants(1.2, .52879, 1.0435, 3.991);
-    //public static final FeedForwardConstants kFFValues = new FeedForwardConstants(0.42502, 2.8721, 0.92093, -1.5);
-    //public static final FeedForwardConstants kFFValues = new FeedForwardConstants(0.87319, 1.8992, 0.55601, -3.153);
+    public static final PidConstants kPidValues = new PidConstants(41, 0, 6.605);
     public static final FeedForwardConstants kFFValues = new FeedForwardConstants(0.1318, 13.2, 0.11, 0.019257);
 
-    //kg 1.56
-    //kv .62
-    //ka .08
-
-    //public static final FeedForwardConstants kFFValues = new FeedForwardConstants(0, .62, 0.08, 1.56);
-
-
-
-    //public static final FeedForwardConstants kFFValues = new FeedForwardConstants(.20035, 3.2988, 0.52066, 0.48143);
-   
     public static final double kPositionTolerance = Math.toRadians(1.0);
     public static final double kStaleTolerance = Math.toRadians(3);
     public static final double kDiffThreshold = Math.toRadians(.9);
@@ -185,7 +172,8 @@ public final class Constants {
 
 
   }
-
+  */
+/*
   public static final class ShooterConstants {
 
     public static final int kDesiredSpeed = 4000; //RPM
@@ -222,7 +210,7 @@ public final class Constants {
     public static final PidConstants kPidValues = new PidConstants(0.001873, 0, 0);
     public static final FeedForwardConstants kFFValues = new FeedForwardConstants(0.058711, 0.11659, 0.0016706);
   }
-
+*/
   public static final class ModuleConstants {
     public static final double kMaxModuleAngularSpeedRadiansPerSecond = 15 * 2 * Math.PI;
     public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 15 * 2 * Math.PI;
@@ -281,7 +269,7 @@ public final class Constants {
     public static final PidConstants kPidValues = new PidConstants(.5, .1, 0.00);
 
   }
-
+/* 
   public static final class LEDConstants {
     public static final int CANdleID = 20;
     public static final int PWMLedId = 0;
@@ -290,4 +278,5 @@ public final class Constants {
     public static final int[] GreenRGB = {0,255,0};
      public static final int[] BlueRGB = {0,0,255};
   }
+  */
 }

@@ -47,7 +47,7 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kFrontLeftDriveMotorPort,
       DriveConstants.kFrontLeftTurningMotorPort,
       DriveConstants.kFrontLeftTurningEncoderPort,
-      DriveConstants.kCanName,
+      DriveConstants.kCanivoreCanName,
       DriveConstants.kFrontLeftTurningEncoderReversed,
       DriveConstants.kFrontLeftDriveReversed,
       DriveConstants.kFrontLeftAngleOffset);
@@ -56,7 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kRearLeftDriveMotorPort,
       DriveConstants.kRearLeftTurningMotorPort,
       DriveConstants.kRearLeftTurningEncoderPort,
-      DriveConstants.kCanName,
+      DriveConstants.kCanivoreCanName,
       DriveConstants.kRearLeftTurningEncoderReversed,
       DriveConstants.kRearLeftDriveReversed,
       DriveConstants.kBackLeftAngleOffset);
@@ -65,7 +65,7 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kFrontRightDriveMotorPort,
       DriveConstants.kFrontRightTurningMotorPort,
       DriveConstants.kFrontRightTurningEncoderPort,
-      DriveConstants.kCanName,
+      DriveConstants.kCanivoreCanName,
       DriveConstants.kFrontRightTurningEncoderReversed,
       DriveConstants.kFrontRightDriveReversed,
       DriveConstants.kFrontRightAngleOffset);
@@ -74,13 +74,14 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kRearRightDriveMotorPort,
       DriveConstants.kRearRightTurningMotorPort,
       DriveConstants.kRearRightTurningEncoderPort,
-      DriveConstants.kCanName,
+      DriveConstants.kCanivoreCanName,
       DriveConstants.kRearRightTurningEncoderReversed,
       DriveConstants.kRearRightDriveReversed,
       DriveConstants.kBackRightAngleOffset);
 
   // The gyro sensor
-  private final Pigeon2 m_gyro = new Pigeon2(0, "Canivore");
+  private final Pigeon2 m_gyro = new Pigeon2(13, DriveConstants.kCanivoreCanName);
+//  private final Pigeon2 m_gyro = new Pigeon2(14, "*");
 
   /**
    * @brief This is a flag to lockout the joystick control of the robot.

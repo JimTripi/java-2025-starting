@@ -30,7 +30,7 @@ import frc.robot.commands.TrajectoryCommandsFactory;
 import frc.robot.commands.drive.CenterToGoalCommand;
 import frc.robot.commands.drive.DriveDistanceCommand;
 import frc.robot.commands.drive.DriveToTargetCommand;
-import frc.robot.subsystems.ArmSubsystemFalcon;
+//import frc.robot.subsystems.ArmSubsystemFalcon;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.utils.Types.GoalType;
 import frc.robot.utils.Types.PositionType;
@@ -55,7 +55,7 @@ public class RobotContainer {
         private final PiCamera m_picam = new PiCamera();
         public Limelight m_limelight = new Limelight("limelight");
         public Limelight m_limelight_side = new Limelight("limelight-side");
-        public ArmSubsystemFalcon m_arm = new ArmSubsystemFalcon();
+        //public ArmSubsystemFalcon m_arm = new ArmSubsystemFalcon();
         private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_limelight, m_limelight_side);// use only 1 limelight for
                                                                                           // driving now since we dont
                                                                                           // have great measurements
@@ -169,7 +169,7 @@ public class RobotContainer {
                                 //configButtonBindingsKickupRightSysID();
                                 break;
                         case ARM:
-                                configButtonBindingsArmSysID();
+                                //configButtonBindingsArmSysID();
                                 break;
                         case NONE:
                         default:
@@ -300,7 +300,7 @@ public class RobotContainer {
                 new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
                                 .toggleOnTrue(m_Launcher.RunKickupBackwardCommand());
         }
-*/
+
         private void configButtonBindingsArmSysID() {
                 new JoystickButton(m_driverController, XboxController.Button.kA.value)
                                 .whileTrue(m_arm.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
@@ -327,7 +327,7 @@ public class RobotContainer {
                         return m_driverController.getLeftTriggerAxis() > 0;
                 }).whileTrue(m_arm.RunArmDownManualSpeedCommand(() -> -m_driverController.getLeftTriggerAxis()));
         }
-        
+   */     
 
         /**
          * Use this method to define your button->command mappings. Buttons can be
